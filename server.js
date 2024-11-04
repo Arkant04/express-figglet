@@ -7,5 +7,5 @@ app.get("/", (req, res) =>{
 })
 
 app.listen(port, ()=>{
-    
+    console.log("Hola estas en el puerto 3000")
 })
