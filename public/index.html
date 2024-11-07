@@ -47,7 +47,7 @@
             .catch(error => {
                 console.error('Error cargando fuentes:', error);
             });
-        document.getElementById('figletForm').addEventListener('submit', async (event) => {
+        document.getElementById('figletForm').addEventListener('change', async (event) => {
             event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
 
             const texto = document.getElementById('texto').value;
