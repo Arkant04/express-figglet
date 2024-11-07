@@ -1,6 +1,6 @@
 const express = require("express")
 const app = express()
-const port = 8000
+const port = 5000
 const { exec } = require('child_process')
 const { error } = require("console")
 const { stdout, stderr } = require("process")
@@ -27,7 +27,7 @@ app.get("/", (req, res) =>{
          res.send(`<pre>${stdout}</pre>`)
      })
  })
-app.get("/fuentes", (req, res) =>{
+app.get("/fonts", (req, res) =>{
     figlet.fonts(function (err, fonts) {
         if (err) {
           console.log("something went wrong...");
@@ -39,13 +39,13 @@ app.get("/fuentes", (req, res) =>{
 })
 
 app.get("/figlet", (req, res) =>{
-    const texto = req.query.texto
-    const fuente = req.query.fuente
+    const text = req.query.text
+    const font = req.query.font
     
     figlet.text(
-        `${texto}`,
+        `${text}`,
         {
-          font: "Doom",
+          font: `${font}`,
           horizontalLayout: "default",
           verticalLayout: "default",
           width: 80,

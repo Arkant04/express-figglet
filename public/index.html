@@ -16,7 +16,7 @@
     <form id="figletForm">
         <label for="texto">Texto:</label>
         <input type="text" id="texto" name="texto"required>
-        <select name="fuentes" id="fuentes"></select>
+        <select name="fonts" id="fonts"></select>
         <button type="submit">Figlear</button>
     </form>
     <div id="result"></div>
@@ -33,10 +33,10 @@
         });
     </script>
     <script>
-        fetch('http://localhost:8000/fuentes')
+        fetch('http://localhost:5000/fonts')
             .then(response => response.json())
             .then(fonts => {
-                const fontSelect = document.getElementById('fuentes');
+                const fontSelect = document.getElementById('fonts');
                 fonts.forEach(font => {
                     const option = document.createElement('option');
                     option.value = font;
@@ -51,8 +51,8 @@
             event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
 
             const texto = document.getElementById('texto').value;
-            const fuentes = document.getElementById('fuentes').value;
-            const response = await fetch(`/figlet?texto=${encodeURIComponent(texto)}&fuentes=${encodeURIComponent(fuentes)}`);
+            const fuentes = document.getElementById('fonts').value;
+            const response = await fetch(`/figlet?text=${encodeURIComponent(texto)}&font=${encodeURIComponent(fuentes)}`);
             const data = await response.text();
             
             document.getElementById('result').innerHTML = `<pre>${data}</pre>`;
