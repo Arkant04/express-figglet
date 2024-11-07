@@ -16,6 +16,7 @@
     <form id="figletForm">
         <label for="texto">Texto:</label>
         <input type="text" id="texto" name="texto"required>
+        <select name="fuentes" id="fuentes"></select>
         <button type="submit">Figlear</button>
     </form>
     <div id="result"></div>
@@ -32,15 +33,31 @@
         });
     </script>
     <script>
+        fetch('http://localhost:8000/fuentes')
+            .then(response => response.json())
+            .then(fonts => {
+                const fontSelect = document.getElementById('fuentes');
+                fonts.forEach(font => {
+                    const option = document.createElement('option');
+                    option.value = font;
+                    option.text = font;
+                    fontSelect.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Error cargando fuentes:', error);
+            });
         document.getElementById('figletForm').addEventListener('submit', async (event) => {
             event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
 
             const texto = document.getElementById('texto').value;
-            const response = await fetch(`/figlet?texto=${encodeURIComponent(texto)}`);
+            const fuentes = document.getElementById('fuentes').value;
+            const response = await fetch(`/figlet?texto=${encodeURIComponent(texto)}&fuentes=${encodeURIComponent(fuentes)}`);
             const data = await response.text();
             
             document.getElementById('result').innerHTML = `<pre>${data}</pre>`;
         });
     </script>
+
 </body>
 </html>
