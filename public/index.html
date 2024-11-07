@@ -12,6 +12,12 @@
         <input type="text" id="url" name="url"required>
         <button type="submit">Hacer Ping</button>
     </form>
+    <h2>Figlet</h2>
+    <form id="figletForm">
+        <label for="texto">Texto:</label>
+        <input type="text" id="texto" name="texto"required>
+        <button type="submit">Figlear</button>
+    </form>
     <div id="result"></div>
 
     <script>
@@ -20,6 +26,17 @@
 
             const dominio = document.getElementById('url').value;
             const response = await fetch(`/ping?url=${encodeURIComponent(dominio)}`);
+            const data = await response.text();
+            
+            document.getElementById('result').innerHTML = `<pre>${data}</pre>`;
+        });
+    </script>
+    <script>
+        document.getElementById('figletForm').addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+
+            const texto = document.getElementById('texto').value;
+            const response = await fetch(`/figlet?texto=${encodeURIComponent(texto)}`);
             const data = await response.text();
             
             document.getElementById('result').innerHTML = `<pre>${data}</pre>`;
